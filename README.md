@@ -2,4 +2,4 @@
  
 
 
-![alt text](screenshots/homepage - Copy.PNG)
+![alt text](screenshots/homepage - Copy.PNG | width=100)
