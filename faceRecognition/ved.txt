@@ -1,0 +1,25 @@
+def get_frame():
+    face_cascade = cv2.CascadeClassifier("data/haarcascade_frontalface_alt2.xml")
+    camera =cv2.VideoCapture(0) 
+    while True:
+        _, img = camera.read()
+        gray =cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
+
+        for(x, y, w, h) in faces:
+            roi = gray[y:y+h, x:x+w]
+            scaled = cv2.resize(roi ,(img_width, img_height))
+            rec_color = (36,255,12)
+            rec_stroke=1
+            cv2.rectangle(img, (x,y),(x+w, y+h), rec_color,rec_stroke)
+
+            new_cords = pca_Algo_obj.new_cord_for_image(scaled)
+            name = pca_Algo_obj.recognize_face(new_cords)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            font_color = (36,255,12)
+            font_stroke = 2
+            cv2.putText(img, name, (x,y-10), font, 0.9, font_color, font_stroke)
+        imgencode=cv2.imencode('.jpg',img)[1]
+        stringData=imgencode.tostring()
+        yield (b'--frame\r\n'b'Content-Type: text/plain\r\n\r\n'+stringData+b'\r\n')
+    del(camera)

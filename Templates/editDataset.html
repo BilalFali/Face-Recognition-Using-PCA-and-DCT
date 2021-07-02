@@ -1,0 +1,60 @@
+
+
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}Image Recognition | AI Course-work{% endblock %}
+{% block content %}
+
+<div class="page-wrapper bg-light p-t-100 font-poppins">
+  <div class="wrapper wrapper--w780">
+      <div class="card card-4">
+          <div class="card-body">
+              <h2 class="title">Update Client Dataset</h2>
+ <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Datasets</h6>
+                               
+                        
+ {% if  client.is_created_ds == False %}
+ <span class="text-muted m-b-10 f-w-400">No DataSet</span>
+ {% else %}
+ <div class="row g-3" id="demo">
+   {% for ds in dataset_client %}
+   <div class='col-md-2 mx-2 '>
+      <img src='/{{ds.dataset}}'  width='100' height='100' >
+     </div>
+
+     {% endfor %}  
+ </div>
+ 
+ <div class="row mt-5">
+   <div class="col">
+ <form action="/create_dataset" method="POST">
+   {% csrf_token %}
+   <div class="form-group">
+       <input type="hidden"  name="userid" value="{{user_with_id.userid}}">
+       <input type="hidden"  name="username" value="{{user_with_id.username}}">
+   </div>
+   <button type="submit" class="btn btn-warning">Create New DataSet</button>
+ </form> 
+ </div>
+ <br>
+ 
+ <div class="col">
+
+ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   Upload New DataSet
+ </button>
+
+ {% endif %} 
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

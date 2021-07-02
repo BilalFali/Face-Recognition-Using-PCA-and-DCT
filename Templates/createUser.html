@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %}Image Recognition | AI Course-work{% endblock %}
+{% block content %}
+
+<div class="page-wrapper bg-light p-t-100 font-poppins">
+  <div class="wrapper wrapper--w780">
+      <div class="card card-4">
+          <div class="card-body">
+              <h2 class="title">Add New Client</h2>
+              <form action="/adduser/" method="POST"  enctype="multipart/form-data" class="row g-3" >
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <label for="validationDefault01" class="form-label">First name</label>
+                    <input name="first_name" type="text" class="form-control" id="validationDefault01"  required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="validationDefault02" class="form-label">Last name</label>
+                    <input name="last_name" type="text" class="form-control" id="validationDefault02"  required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationDefaultUsername" class="form-label">Username</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                      <input name="username" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <label for="validationDefault04" class="form-label">Gender</label>
+                    <select name="gender" class="form-select " id="validationDefault04" required>
+                      <option selected disabled value="">Choose  Gender</option>
+                      <option >Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationDefault04" class="form-label">Database</label>
+                    <select name="database" class="form-select " id="validationDefault04" required>
+                      <option selected disabled value="">Choose Database</option>
+                      <option>My Database</option>
+                      <option>ORL Database</option>
+                    </select>
+                  </div>
+
+                <pre>
+                  </pre>
+                  <div class="col-12 text-center">
+                    <button class="btn btn-primary" type="submit">Save Client</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

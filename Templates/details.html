@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Image Recognition | AI Course-work{% endblock %}
+{% block content %}
+
+
+<div class="page-wrapper bg-light p-t-100 font-poppins">
+  <div class="wrapper wrapper--w820">
+      <div class="card card-4">
+          <div class="card-body">
+              <h2 class="title">Profile </h2>
+                      <div class="col-sm-12">
+                          <div class="card-block">
+                              <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                              <div class="row g-3">
+                                <div class="col-md-4">
+                                      <p class="m-b-5 f-w-600">First name</p>
+                                      <h6 class="text-muted m-b-10 f-w-400">{{user_with_id.first_name}}</h6>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <p class="m-b-5 f-w-600">Last name</p>
+                                    <h6 class="text-muted m-b-10 f-w-400">{{user_with_id.last_name}}</h6>
+                                </div>
+                                <div class="col-md-4">
+                                  <p class="m-b-5 f-w-600">Username</p>
+                                  <h6 class="text-muted m-b-10 f-w-400">{{user_with_id.username}}</h6>
+                              </div>
+                              <div class="col-md-4">
+                                  <p class="m-b-5 f-w-600">Gender</p>
+                                  
+                                  <h6 class="text-muted m-b-10 f-w-400">                      
+                                    {{user_with_id.user_gender}}
+                                  </h6>
+
+                                      
+                              </div>
+                              <div class="col-md-4">
+                                <p class="m-b-5 f-w-600">Database</p>
+                                <h6 class="text-muted m-b-10 f-w-400">                      
+                                  {{user_with_id.user_database}}
+                                </h6>
+                            </div>
+                            <div class="col-md-4">
+                                      <p class="m-b-5 f-w-600">Data Created</p>
+                                      <h6 class="text-muted m-b-10 f-w-400">
+                                        {{user_with_id.recorded_at}}
+                                      </h6>
+                                  </div>
+                              </div>
+                              <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Datasets</h6>
+                                                       
+                              {% if  user_with_id.is_created_ds == False %}
+                              <span class="text-muted m-b-10 f-w-400">No DataSet</span>
+                              <br>
+                              <br>
+                              <form action="/create_dataset" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden"  name="userid" value="{{user_with_id.userid}}">
+                                    <input type="hidden"  name="username" value="{{user_with_id.username}}">
+                                </div>
+                                <button type="submit" class="btn btn-warning">Create DataSet</button>
+                              </form>   <br>
+                              
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Upload DataSet
+                              </button>
+                             
+                              {% else %}
+                              <div class="row g-3" id="demo">
+                                
+                                {% for ds in dataset_with_client %}
+                                <div class='col-md-2 mx-2 '>
+                                   <img src='/{{ds.dataset}}'  width='100' height='100' >
+                                  </div>
+                      
+                                  {% endfor %}  
+                              </div>
+                              {% endif %} 
+                              
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Upload dataset</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        <div class="modal-body">
+          <form action="/upload_dataset" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="file"  name="ds1"   accept="image/*"> <br>
+              <input type="file"   name="ds2" accept="image/*"> <br>
+              <input type="file"  name="ds3" accept="image/*"> <br>
+              <input type="file" name="ds4" accept="image/*"> <br>
+              <input type="file" name="ds5" accept="image/*"> <br>
+        </div>
+        <div class="modal-footer">
+                        <input type="hidden"  name="userid" value="{{user_with_id.userid}}">
+                <input type="hidden"  name="username" value="{{user_with_id.username}}">
+            </div>
+            <button type="submit" class="btn btn-primary">OK, Upload</button>
+          </form><br>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <script type="text/javascript">
+    function getFilePath(){
+         $('input[type=file]').change(function () {
+             var filePath=$('#fileUpload').val(); 
+         });
+    }
+
+    $(document).ready(function() {
+      $("#MyModal").modal();
+    });
+    </script>
+{% endblock %}
+
+

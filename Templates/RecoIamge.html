@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block content%}
+  <div class="page-wrapper bg-light  p-b-100 font-poppins">
+    <div class="wrapper wrapper--w980">
+        <div class="card card-4">
+            <div class="card-body text-center">
+                <h2 class="title">Recognition Image</h2>
+                <div class="row">
+                    <div class="col">
+
+                        <img src="/{{clientimg}}" width="300" height="200"> 
+                        <br>   <br>   <br>
+                        
+                            
+                            <form action="detectimg" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                  
+                                    <input type="hidden"  name="clientimg" value="{{clientimg}}">
+                                </div>
+                                <span style="font-size: 20px; color: rgb(255, 255, 255);">
+                                   <button type="submit" class="btn btn-danger w-2 mx-1 " >
+                                    Recognition</span></button>
+                            </form>
+
+                            <br>   <br>
+                            
+                                 <button class="btn btn-secondary w-2 mx-1">
+                                    <a href="{% url 'home'%}">
+                                <i class="fa fa-home"></i>  Home </a>
+                             </button>
+                            
+                          
+                      
+                    </div>
+                    <div class="col">
+                        
+                        {% if client %}
+                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                              <div class="row g-3">
+                                <div class="col-md-4">
+                                      <p class="m-b-5 f-w-600">First name</p>
+                                      <h6 class="text-muted m-b-10 f-w-400">{{client.first_name}}</h6>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <p class="m-b-5 f-w-600">Last name</p>
+                                    <h6 class="text-muted m-b-10 f-w-400">{{client.last_name}}</h6>
+                                </div>
+                                <div class="col-md-4">
+                                  <p class="m-b-5 f-w-600">Username</p>
+                                  <h6 class="text-muted m-b-10 f-w-400">{{client.username}}</h6>
+                              </div>
+                              <div class="col-md-4">
+                                  <p class="m-b-5 f-w-600">Gender</p>
+                                  
+                                  <h6 class="text-muted m-b-10 f-w-400">                      
+                                    {{client.user_gender}}
+                                  </h6>
+                                      
+                              </div>
+                              <div class="col-md-4">
+                                <p class="m-b-5 f-w-600">Database</p>
+                                <h6 class="text-muted m-b-10 f-w-400">                      
+                                  {{client.user_database}}
+                                </h6>
+                            </div>
+                           
+                              </div>
+                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Face</h6>
+                        <img src="/media/dataset/{{client.username}}/1.jpg"    width='100' height='100' > 
+                        
+                        
+                        {% else %}
+                        <span>no data</span>
+                        {% endif %}
+                        
+                            
+                       
+                    </div>
+                </div>
+         
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    {% endblock %}

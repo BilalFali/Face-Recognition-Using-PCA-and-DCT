@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block content%}
+  <div id="particles-js"></div>
+  <div class="container conatiner-index" >
+    <div class="row m-b-20">
+    <div class="col-lg-12" >
+
+        <h1 class="text-center section-title" style="margin-bottom:2em">Face Recognition   </h1> 
+  </div>
+    
+</div>
+<div class="container " >
+<div class="row m-b-20">
+  <div class="col-lg-4 text-center " >
+    <a href="detectface"><img src="{% static 'images/face.png' %}" class=" img-index"  width="80" height="80" /></a>
+    <h4 class="pt-2">Face Detection</h4>
+</div>
+<div class="col-lg-4 text-center" >
+  <a href="detect"><img src="{% static 'images/webcam.png' %}" class=" img-index"  width="80" height="80" /></a>
+  <h4 class="pt-2">Recognition on vedio</h4>
+</div>
+<div class="col-lg-4 text-center" >
+  <form id="target" action="detectph" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <label for="file-input" style="cursor:pointer">
+        <img src="{% static 'images/picture.png' %}"  class="rounded img-index"  width="80" height="80" />
+      </label>
+      <input id="file-input" name="clientimg" type="file" style="display: none;" accept="image/*"/>
+    </form>
+    <script>
+      $('#file-input').change(function() {
+        $('#target').submit();
+      });
+    </script>
+  <h4>Recognition on Image</h4>
+</div>
+<div class="col-lg-4 text-center" >
+  <a href="Clients/"><img src="{% static 'images/team.png' %}" class="rounded img-index"  width="80" height="80"/></a>
+        <h4 class="pt-2">Clients</h4>
+</div>
+<div class="col-lg-4 text-center" >
+  <a   href="{% url 'training'%}"><img src="{% static 'images/projector.png' %}" class="rounded img-index"  width="80" height="80"/></a>
+  <h4 class="pt-2">Train</h4>
+</div>
+<div class="col-lg-4 text-center" >
+  <a href="{% url 'settings'%}"><img src="{% static 'images/settings.png' %}" class="rounded img-index"  width="80" height="80"/></a>
+  <h4 class="pt-2">settings</h4>
+</div>
+</div>
+</div>
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>						
+        <h4 class="modal-title w-100">Train</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Train Complete </p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %} 
+</div>
+  {% endblock %}

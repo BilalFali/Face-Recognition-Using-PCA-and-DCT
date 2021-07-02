@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block content%}
+  <div class="page-wrapper bg-light  font-poppins">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-4">
+            <div class="card-body text-center">
+              {% for p in para %}
+                <h2 class="title">Recognition </h2> 
+                <div class="row">
+                  <div class="col">  
+                
+                  <img src="{% url 'videostream' stream_path='video' %} " width="{{p.width_frame}}" height="{{p.height_frame}}">
+                  
+                  <br>
+                  <br>
+                  
+
+                  </div>
+                  <div class="col">
+                        
+                 
+                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Parameter</h6>
+                          <div class="row g-3">
+                            <div class="col-md-4">
+                                  <p class="m-b-5 f-w-600">ScaleFactor</p>
+                                  <h6 class="text-muted m-b-10 f-w-400">{{p.scaleFactor}}</h6>
+                              </div>
+                              <div class="col-md-4">
+                                <p class="m-b-5 f-w-600">minNeighbors</p>
+                                <h6 class="text-muted m-b-10 f-w-400">{{p.minNeighbors}}</h6>
+                            </div>
+                            <div class="col-md-4">
+                              <p class="m-b-5 f-w-600">Width Frame</p>
+                              <h6 class="text-muted m-b-10 f-w-400">{{p.width_frame}}</h6>
+                          </div>
+                          <div class="col-md-4">
+                              <p class="m-b-5 f-w-600">Height Frame</p>
+                              
+                              <h6 class="text-muted m-b-10 f-w-400">                      
+                                {{p.height_frame}}
+                              </h6>
+                                  
+                          </div>
+                          <div class="col-md-4">
+                            <p class="m-b-5 f-w-600">Rec Color</p>
+                            <h6 class="text-muted m-b-10 f-w-400">                      
+                              {{p.rec_color}}
+                            </h6>
+                        </div>
+                       
+                          </div>
+                       
+                    <br> <br>
+                          <button class="btn btn-warning">
+                            <a href="{% url 'settings'%}">
+                          <i class="fa fa-edit"></i>  Setting </a>
+                          </button>
+                   
+                </div>
+              </div>
+
+                 
+                  
+                  {% endfor %}
+                    
+                 
+                  <br> <br>
+                  <button class="btn btn-secondary">
+                    <a href="{% url 'home'%}">
+                  <i class="fa fa-home"></i>  Home </a>
+                  </button>
+                </div>
+
+    </div>
+  </div>
+</div>
+    {% endblock %}

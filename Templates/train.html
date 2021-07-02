@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block content%}
+  
+   
+<div class="page-wrapper bg-light p-t-100 font-poppins">
+  <div class="wrapper wrapper--w820">
+      <div class="card card-4">
+          <div class="card-body">
+            <h2 class="title text-center">Training </h2>
+            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Clients is Training</h6>
+            <div class="row g-3">
+                                
+              {% for tc in train_client %}
+              <div class='col-md-2 mx-2 '>
+                <span>{{tc.clientname}}</span>
+                 <img src='/{{tc.TrainImg}}'  width='100' height='100' >
+                </div>
+    
+                {% endfor %}  
+            </div>
+
+            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Clients No Training</h6>
+            <div class="row g-3">
+            {% for no_tr in client_notrain %}                 
+            <div class='col-md-2 mx-2 '>
+              <span>{{no_tr.username}}</span>
+              <img src='/media/dataset/{{no_tr.username}}/1.jpg' alt="dataset not created"  width='100' height='100' >
+              </div>
+            {% endfor %} 
+          </div>
+            <br><br>
+            <div class="text-center">
+            <button  class="btn btn-primary "><a href="{% url 'train'%}" >Training</a></button>
+            <button class="btn btn-secondary">
+              <a href="{% url 'home'%}">
+          <i class="fa fa-home"></i>  Home </a>
+        </button>
+          </div>                
+                              
+                                
+                               
+                             
+                              
+                       
+                       
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}Title{% endblock %}
+{% block content %}
+<div class="page-wrapper bg-light  font-poppins">
+  <div class="wrapper wrapper--w980">
+    <div class="card card-4">
+<div class=" w-75 p-3 pt-5 " >
+
+  <h1>List of Clients</h1>
+  
+  </div>
+  <div class="row mt-auto mx-2">
+    <div class="col-sm-7">
+      <input  type="text" id="myInput" onkeyup="searchUsers()" placeholder="Search for Usernames..">
+    </div>
+    <div class="col-sm-3">
+      <p><a class="btn btn-primary btn-lg" href="create_client/" role="button" >Add New Client</a></p>
+
+    </div>
+    <div class="col-sm-2">
+    <button class="btn btn-secondary">
+      <a href="{% url 'home'%}">
+  <i class="fa fa-home"></i>  Home </a>
+</button>
+</div>
+  </div>
+   <span></span>
+    <div class="row mt-4 mx-2">
+      <div class="col">
+        
+        {% if  users ==  null%}
+          <span>No Clients Please Add Clients</span>
+        {% else %}
+          
+       
+          
+        <table class="table" id="myTable">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Username</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Database</th>
+              <th scope="col">Face</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+
+            <tr>
+              <td >{{user.userid}}</td>          
+              <td >{{user.first_name}}</td>          
+              <td>{{user.last_name}}</td>
+              <td >{{user.username}}</td>
+              <td >{{user.user_gender}}</td>
+              <td >{{user.user_database}}</td>
+              {% if  user.is_created_ds == True %}
+              <td><img src="/media/dataset/{{user.username}}/1.jpg" alt=""   width='50' height='50' > </td>
+               
+               {% else %}
+               <td ><Span>No Face</Span></td>
+               {%endif%}
+              <td> 
+                 <!-- Profile -->   
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <a href="/details/{{user.slug}}">
+                    <button type="submit" class="btn btn-primary  w-2 mx-1 ">
+                    <span style="font-size: 20px; color: rgb(255, 255, 255);">
+                    <i class="fa fa-user"></i></span></button>
+                  </a> 
+                   <!-- Update -->   
+                  <a href="/update_client/{{user.slug}}">
+                    <button type="submit" class="btn btn-secondary  w-2 mx-1 ">
+                    <span style="font-size: 20px; color: rgb(255, 255, 255);">
+                    <i class="fa fa-user-edit  "></i></span></button></a> 
+                  
+                     <!-- Delete -->    
+                  <form action="delete_client" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input type="hidden"  name="userid" value="{{user.userid}}">
+                        <input type="hidden"  name="username" value="{{user.username}}">
+                    </div>
+                    <span style="font-size: 20px; color: rgb(255, 255, 255);">
+                       <button type="submit" class="btn btn-danger w-2 mx-1 " onclick="return confirm('Are you sure you want to delete this?')">
+                       <i class="fa fa-trash-alt"></i></span></button>
+                </form>
+                </div>          
+                
+              </td>
+            </tr>
+          
+          </tbody>
+          {% endfor %}
+        </table>
+        {% endif %}
+      </div>
+</div>
+</div>
+</div>
+</div>
+
+  
+
+
+{% endblock %}

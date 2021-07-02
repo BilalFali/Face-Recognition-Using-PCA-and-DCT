@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+  {% block content%}
+  <div class="page-wrapper bg-light  font-poppins">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-4">
+            <div class="card-body text-center">
+                <h2 class="title">Face Detection </h2>
+         <img src="{% url 'facevideostream' stream_path_detect='videoface' %}" width="800" height="500"> 
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    {% endblock %}
